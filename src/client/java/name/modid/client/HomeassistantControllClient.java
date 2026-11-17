@@ -45,7 +45,8 @@ public class HomeassistantControllClient implements ClientModInitializer {
 			}
 
 			while (OPEN_CONFIG_KEY.consumeClick()) {
-				client.gui.setScreen(new ConfigScreen(Component.literal("Home Assistant Control")));
+				client.gui.setScreen(new ConfigScreen(
+						Component.translatable("screen.homeassistant-controll.config.title")));
 			}
 
 			if (ModConfig.get().isMasterSwitchEnabled() && ModConfig.get().isLightLevelEnabled()

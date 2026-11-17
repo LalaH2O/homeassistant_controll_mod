@@ -1,0 +1,16 @@
+{
+  "key.homeassistant-controll.open_config": "Öffne Homeassistant Konfigurator",
+  "category.homeassistant-controll": "Home Assistant Kontrolle",
+  "screen.homeassistant-controll.config.title": "Home Assistant Kontrolle",
+  "screen.homeassistant-controll.config.server_url": "Server URL",
+  "screen.homeassistant-controll.config.access_token": "Access token",
+  "screen.homeassistant-controll.config.script_id": "Script ID",
+  "screen.homeassistant-controll.config.light_id": "Light ID oder area:<id>",
+  "screen.homeassistant-controll.config.damage_trigger": "Schaden Auslöser: %s",
+  "screen.homeassistant-controll.config.light_level_sync": "Licht-level synchronisation: %s",
+  "screen.homeassistant-controll.config.master_switch": "Haupt schalter: %s",
+  "screen.homeassistant-controll.config.on": "ON",
+  "screen.homeassistant-controll.config.off": "OFF",
+  "screen.homeassistant-controll.config.save": "Speichern",
+  "screen.homeassistant-controll.config.cancel": "Abbrechen"
+}

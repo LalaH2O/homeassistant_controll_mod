@@ -23,10 +23,10 @@ public class ConfigScreen extends Screen {
 	protected void init() {
 		ModConfig config = ModConfig.get();
 
-		serverUrlField = createField(40, 35, config.getServerUrl(), "Server URL");
-		accessTokenField = createField(40, 75, config.getAccessToken(), "Access token");
-		scriptIdField = createField(40, 115, config.getScriptId(), "Script ID");
-		lightsIdField = createField(40, 155, config.getLightsId(), "Light ID or area:<id>");
+		serverUrlField = createField(40, 35, config.getServerUrl(), "screen.homeassistant-controll.config.server_url");
+		accessTokenField = createField(40, 75, config.getAccessToken(), "screen.homeassistant-controll.config.access_token");
+		scriptIdField = createField(40, 115, config.getScriptId(), "screen.homeassistant-controll.config.script_id");
+		lightsIdField = createField(40, 155, config.getLightsId(), "screen.homeassistant-controll.config.light_id");
 		
 		hurtEnabled = config.isHurtEnabled();
 		lightLevelEnabled = config.isLightLevelEnabled();
@@ -37,38 +37,39 @@ public class ConfigScreen extends Screen {
 		this.addRenderableWidget(scriptIdField);
 		this.addRenderableWidget(lightsIdField);
 
-		this.addRenderableWidget(Button.builder(toggleLabel("Damage trigger", hurtEnabled), button -> {
+		this.addRenderableWidget(Button.builder(toggleLabel("screen.homeassistant-controll.config.damage_trigger", hurtEnabled), button -> {
 			hurtEnabled = !hurtEnabled;
-			button.setMessage(toggleLabel("Damage trigger", hurtEnabled));
+			button.setMessage(toggleLabel("screen.homeassistant-controll.config.damage_trigger", hurtEnabled));
 		}).bounds(285, 115, 140, 20).build());
 
-		this.addRenderableWidget(Button.builder(toggleLabel("Light-level sync", lightLevelEnabled), button -> {
+		this.addRenderableWidget(Button.builder(toggleLabel("screen.homeassistant-controll.config.light_level_sync", lightLevelEnabled), button -> {
 			lightLevelEnabled = !lightLevelEnabled;
-			button.setMessage(toggleLabel("Light-level sync", lightLevelEnabled));
+			button.setMessage(toggleLabel("screen.homeassistant-controll.config.light_level_sync", lightLevelEnabled));
 		}).bounds(285, 155, 140, 20).build());
 
-		this.addRenderableWidget(Button.builder(toggleLabel("Master switch", masterSwitch), button -> {
+		this.addRenderableWidget(Button.builder(toggleLabel("screen.homeassistant-controll.config.master_switch", masterSwitch), button -> {
 			masterSwitch = !masterSwitch;
-			button.setMessage(toggleLabel("Master switch", masterSwitch));
+			button.setMessage(toggleLabel("screen.homeassistant-controll.config.master_switch", masterSwitch));
 		}).bounds(285, 75, 140, 20).build());
 
-		this.addRenderableWidget(Button.builder(Component.literal("Save"), button -> {
+		this.addRenderableWidget(Button.builder(Component.translatable("screen.homeassistant-controll.config.save"), button -> {
 			config.setValues(serverUrlField.getValue(), accessTokenField.getValue(), scriptIdField.getValue(),
 					lightsIdField.getValue(), hurtEnabled, lightLevelEnabled, masterSwitch);
 			config.save();
 			this.minecraft.gui.setScreen(null);
 		}).bounds(40, 240, 100, 20).build());
 
-		this.addRenderableWidget(Button.builder(Component.literal("Cancel"), button -> this.minecraft.gui.setScreen(null))
+		this.addRenderableWidget(Button.builder(Component.translatable("screen.homeassistant-controll.config.cancel"), button -> this.minecraft.gui.setScreen(null))
 				.bounds(150, 240, 100, 20).build());
 	}
 
-	private Component toggleLabel(String name, boolean enabled) {
-		return Component.literal(name + ": " + (enabled ? "ON" : "OFF"));
+	private Component toggleLabel(String key, boolean enabled) {
+		return Component.translatable(key, Component.translatable(
+				enabled ? "screen.homeassistant-controll.config.on" : "screen.homeassistant-controll.config.off"));
 	}
 
-	private EditBox createField(int x, int y, String value, String hint) {
-		EditBox field = new EditBox(this.font, x, y, 240, 20, Component.literal(hint));
+	private EditBox createField(int x, int y, String value, String hintKey) {
+		EditBox field = new EditBox(this.font, x, y, 240, 20, Component.translatable(hintKey));
 		field.setMaxLength(512);
 		field.setValue(value);
 		return field;
@@ -78,9 +79,9 @@ public class ConfigScreen extends Screen {
 	public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
 		super.extractRenderState(graphics, mouseX, mouseY, delta);
 
-		graphics.text(this.font, "Server URL", 40, 25, 0xFFFFFFFF, true);
-		graphics.text(this.font, "Access token", 40, 65, 0xFFFFFFFF, true);
-		graphics.text(this.font, "Script ID", 40, 105, 0xFFFFFFFF, true);
-		graphics.text(this.font, "Light ID or area:<id>", 40, 145, 0xFFFFFFFF, true);
+		graphics.text(this.font, Component.translatable("screen.homeassistant-controll.config.server_url"), 40, 25, 0xFFFFFFFF, true);
+		graphics.text(this.font, Component.translatable("screen.homeassistant-controll.config.access_token"), 40, 65, 0xFFFFFFFF, true);
+		graphics.text(this.font, Component.translatable("screen.homeassistant-controll.config.script_id"), 40, 105, 0xFFFFFFFF, true);
+		graphics.text(this.font, Component.translatable("screen.homeassistant-controll.config.light_id"), 40, 145, 0xFFFFFFFF, true);
 	}
 }

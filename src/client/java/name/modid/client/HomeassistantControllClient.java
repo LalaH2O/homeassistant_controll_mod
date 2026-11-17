@@ -1,10 +1,12 @@
 package name.modid.client;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+
+import com.mojang.blaze3d.platform.InputConstants;
+
 import name.modid.HomeassistantControll;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -32,7 +34,7 @@ public class HomeassistantControllClient implements ClientModInitializer {
 				float currentHealth = client.player.getHealth();
 				if (lastHealth >= 0.0F && currentHealth < lastHealth) {
 					HomeassistantControll.LOGGER.info("{} took damage", client.player.getName().getString());
-					triggerHomeAssistantScript();
+					triggerHomeAssistantScript(ModConfig.get().getScriptId());
 				}
 				lastHealth = currentHealth;
 			}
@@ -43,17 +45,17 @@ public class HomeassistantControllClient implements ClientModInitializer {
 		});
 	}
 
-	private static void triggerHomeAssistantScript() {
+	private static void triggerHomeAssistantScript(String scriptId) {
 		ModConfig config = ModConfig.get();
-		if (config.getServerUrl().isBlank() || config.getAccessToken().isBlank() || config.getScriptId().isBlank()) {
+		if (config.getServerUrl().isBlank() || config.getAccessToken().isBlank() || scriptId.isBlank()) {
 			HomeassistantControll.LOGGER.warn("Home Assistant configuration is incomplete; cannot trigger script");
 			return;
 		}
 
-		String url = config.getServerUrl().replaceAll("/+$", "") + "/api/services/script/flash_red";
+		String url = config.getServerUrl().replaceAll("/+$", "") + "/api/services/script/" + scriptId;
 		String body = """
 				{"entity_id":"%s"}
-				""".formatted(config.getScriptId());
+				""".formatted(scriptId);
 
 		try {
 			HttpRequest request = HttpRequest.newBuilder()

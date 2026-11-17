@@ -22,6 +22,9 @@ public final class ModConfig {
 	@SerializedName(value = "scriptId", alternate = "entityId")
 	private String scriptId = "";
 	private String lightsId = "";
+	private boolean hurt = true;
+	private boolean lightlevel = true;
+	private boolean masterSwitch = true;
 
 	public static ModConfig get() {
 		return INSTANCE;
@@ -43,11 +46,27 @@ public final class ModConfig {
 		return lightsId;
 	}
 
-	public void setValues(String serverUrl, String accessToken, String scriptId, String lightsId) {
+	public boolean isHurtEnabled() {
+		return hurt;
+	}
+
+	public boolean isLightLevelEnabled() {
+		return lightlevel;
+	}
+
+	public boolean isMasterSwitchEnabled() {
+		return masterSwitch;
+	}
+
+	public void setValues(String serverUrl, String accessToken, String scriptId, String lightsId,
+			boolean hurt, boolean lightlevel, boolean masterSwitch) {
 		this.serverUrl = serverUrl;
 		this.accessToken = accessToken;
 		this.scriptId = scriptId;
 		this.lightsId = lightsId;
+		this.hurt = hurt;
+		this.lightlevel = lightlevel;
+		this.masterSwitch = masterSwitch;
 	}
 
 	public void save() {

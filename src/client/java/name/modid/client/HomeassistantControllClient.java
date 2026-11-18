@@ -14,11 +14,11 @@ import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.LightLayer;
-
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.LightLayer;
 
+import net.minecraft.tags.FluidTags;
 
 public class HomeassistantControllClient implements ClientModInitializer {
 	private static final HttpClient HTTP_CLIENT = HttpClient.newHttpClient();
@@ -66,6 +66,10 @@ public class HomeassistantControllClient implements ClientModInitializer {
 	private static boolean hadwind_charge = false; 
 	private static boolean hadwither = false; 
 	private static boolean hadfire = false;
+	private static boolean hadwater = false;
+	private static boolean hadlava = false;
+	private static boolean wasinwater = false;
+	private static boolean wasinlava = false;
 
 	private static final KeyMapping OPEN_CONFIG_KEY = KeyMappingHelper.registerKeyMapping(new KeyMapping(
 			"key.homeassistant-controll.open_config",
@@ -202,6 +206,32 @@ public class HomeassistantControllClient implements ClientModInitializer {
 					hadfire = false;
 					triggerHomeAssistantScript(config.getendfireScript());
 				}
+
+				if (player.isInWater() && !hadwater) {
+					hadwater = true;
+					triggerHomeAssistantScript(config.getwaterScript());
+				}
+
+				if (hadwater && !player.isInWater()) {
+					hadwater = false;
+					triggerHomeAssistantScript(config.getendwaterScript());
+				}
+
+				if (player.isInLava() && !hadlava) {
+					hadlava = true;
+					triggerHomeAssistantScript(config.getlavaScript());
+				}
+
+				if (hadlava && !player.isInLava()) {
+					hadlava = false;
+					triggerHomeAssistantScript(config.getendlavaScript());
+				}
+
+				if ((player.isInWater() | player.isUnderWater()) && !wasinwater) {wasinwater = true;}
+				if ((player.isInLava()) && !wasinlava) {wasinlava = true;}
+
+				if (!(player.isInWater() | player.isUnderWater()) && wasinwater) {wasinwater = false;}
+				if (!(player.isInLava()) && wasinlava) {wasinlava = false;}
 			}
 
 		});

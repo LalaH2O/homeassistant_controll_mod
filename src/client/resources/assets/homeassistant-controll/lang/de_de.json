@@ -20,5 +20,7 @@
   "screen.homeassistant-controll.secondary.start": "Beginn",
   "screen.homeassistant-controll.secondary.end": "Ende",
   "effect.homeassistant-controll.fire": "Brennend",
-  "effect.homeassistant-controll.freezing": "Gefrieren"
+  "effect.homeassistant-controll.freezing": "Gefrieren",
+  "effect.homeassistant-controll.water": "Im Wasser",
+  "effect.homeassistant-controll.lava": "In Lava"
 }

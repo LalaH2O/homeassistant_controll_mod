@@ -109,6 +109,10 @@ public final class ModConfig {
 
 	private String fireScript = "";
 	private String endfireScript = "";
+	private String waterScript = "";
+	private String endwaterScript = "";
+	private String lavaScript = "";
+	private String endlavaScript = "";
 
 	public static ModConfig get() {
 		return INSTANCE;
@@ -611,6 +615,30 @@ public final class ModConfig {
 
 	public String getendfireScript() {
 		return endfireScript;
+	}
+
+	public void setWaterAndLavaScripts(String waterScript, String endwaterScript,
+			String lavaScript, String endlavaScript) {
+		this.waterScript = waterScript;
+		this.endwaterScript = endwaterScript;
+		this.lavaScript = lavaScript;
+		this.endlavaScript = endlavaScript;
+	}
+
+	public String getwaterScript() {
+		return waterScript;
+	}
+
+	public String getendwaterScript() {
+		return endwaterScript;
+	}
+
+	public String getlavaScript() {
+		return lavaScript;
+	}
+
+	public String getendlavaScript() {
+		return endlavaScript;
 	}
 
 	public void save() {

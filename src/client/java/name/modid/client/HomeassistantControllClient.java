@@ -20,6 +20,9 @@ import net.minecraft.world.level.LightLayer;
 
 import net.minecraft.tags.FluidTags;
 
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.Level;
+
 public class HomeassistantControllClient implements ClientModInitializer {
 	private static final HttpClient HTTP_CLIENT = HttpClient.newHttpClient();
 	private static float lastHealth = -1.0F;
@@ -68,8 +71,9 @@ public class HomeassistantControllClient implements ClientModInitializer {
 	private static boolean hadfire = false;
 	private static boolean hadwater = false;
 	private static boolean hadlava = false;
-	private static boolean wasinwater = false;
-	private static boolean wasinlava = false;
+	private static boolean hadnether = false;
+	private static boolean hadoverworld = false;
+	private static boolean hadend = false;
 
 	private static final KeyMapping OPEN_CONFIG_KEY = KeyMappingHelper.registerKeyMapping(new KeyMapping(
 			"key.homeassistant-controll.open_config",
@@ -227,11 +231,37 @@ public class HomeassistantControllClient implements ClientModInitializer {
 					triggerHomeAssistantScript(config.getendlavaScript());
 				}
 
-				if ((player.isInWater() | player.isUnderWater()) && !wasinwater) {wasinwater = true;}
-				if ((player.isInLava()) && !wasinlava) {wasinlava = true;}
+				ResourceKey<Level> dimension = player.level().dimension();
 
-				if (!(player.isInWater() | player.isUnderWater()) && wasinwater) {wasinwater = false;}
-				if (!(player.isInLava()) && wasinlava) {wasinlava = false;}
+				if (dimension == Level.OVERWORLD && !hadoverworld) {
+				    hadoverworld = true;
+					triggerHomeAssistantScript(config.getenterOverWorldScript());
+				} 
+				
+				if (dimension == Level.NETHER && !hadnether) {
+				    hadnether = true;
+					triggerHomeAssistantScript(config.getenterNetherScript());
+				}  
+				
+				if (dimension == Level.END && !hadend) {
+				    hadend = true;
+					triggerHomeAssistantScript(config.getenterEndScript());
+				}
+
+				if (! (dimension == Level.OVERWORLD) && hadoverworld) {
+				    hadoverworld = false;
+					triggerHomeAssistantScript(config.getexitOverWorldScript());
+				} 
+				
+				if (! (dimension == Level.NETHER) && hadnether) {
+				    hadnether = false;
+					triggerHomeAssistantScript(config.getexitNetherScript());
+				}  
+				
+				if (!(dimension == Level.END) && hadend) {
+				    hadend = false;
+					triggerHomeAssistantScript(config.getexitEndScript());
+				}
 			}
 
 		});

@@ -102,6 +102,14 @@ public class SecondarySettingsScreen extends Screen {
 	private EditBox lavaScript;
 	private EditBox endlavaScript;
 
+	private EditBox enterOverWorldScript;
+	private EditBox exitOverWorldScript;
+	private EditBox enterNetherScript;
+	private EditBox exitNetherScript;
+	private EditBox enterEndScript;
+	private EditBox exitEndScript;
+
+
 	public SecondarySettingsScreen(Screen parent) {
 		super(Component.translatable("screen.homeassistant-controll.secondary.title"));
 		this.parent = parent;
@@ -159,11 +167,12 @@ public class SecondarySettingsScreen extends Screen {
 		endinvisibilityScript = createField(xPositions[0] + 78, y + rowHeight * 18, fieldWidth, config.getendinvisibilityScript());
 		jump_boostScript = createField(xPositions[0], y + rowHeight * 19, fieldWidth, config.getjump_boostScript());
 		endjump_boostScript = createField(xPositions[0] + 78, y + rowHeight * 19, fieldWidth, config.getendjump_boostScript());
-		
 		fireScript = createField(xPositions[0], y + rowHeight * 20, fieldWidth, config.getfireScript());
 		endfireScript = createField(xPositions[0] + 78, y + rowHeight * 20, fieldWidth, config.getendfireScript());
 		waterScript = createField(xPositions[0], y + rowHeight * 21, fieldWidth, config.getwaterScript());
 		endwaterScript = createField(xPositions[0] + 78, y + rowHeight * 21, fieldWidth, config.getendwaterScript());
+		enterOverWorldScript = createField(xPositions[0], y + rowHeight * 22, fieldWidth, config.getenterOverWorldScript());
+		exitOverWorldScript = createField(xPositions[0] + 78, y + rowHeight * 22, fieldWidth, config.getexitOverWorldScript());
 
 		levitationScript = createField(xPositions[1], y, fieldWidth, config.getlevitationScript());
 		endlevitationScript = createField(xPositions[1] + 78, y, fieldWidth, config.getendlevitationScript());
@@ -207,6 +216,10 @@ public class SecondarySettingsScreen extends Screen {
 		endwitherScript = createField(xPositions[1] + 78, y + rowHeight * 19, fieldWidth, config.getendwitherScript());
 		lavaScript = createField(xPositions[1], y + rowHeight * 20, fieldWidth, config.getlavaScript());
 		endlavaScript = createField(xPositions[1] + 78, y + rowHeight * 20, fieldWidth, config.getendlavaScript());
+		enterNetherScript = createField(xPositions[1], y + rowHeight * 21, fieldWidth, config.getenterNetherScript());
+		exitNetherScript = createField(xPositions[1] + 78, y + rowHeight * 21, fieldWidth, config.getexitNetherScript());
+		enterEndScript = createField(xPositions[1], y + rowHeight * 22, fieldWidth, config.getenterEndScript());
+		exitEndScript = createField(xPositions[1] + 78, y + rowHeight * 22, fieldWidth, config.getexitEndScript());
 
 		this.addRenderableWidget(Button.builder(
 				Component.translatable("screen.homeassistant-controll.secondary.save"),
@@ -260,6 +273,10 @@ public class SecondarySettingsScreen extends Screen {
 		savedConfig.setWaterAndLavaScripts(
 				waterScript.getValue(), endwaterScript.getValue(),
 				lavaScript.getValue(), endlavaScript.getValue());
+		savedConfig.setDimensionScripts(
+				enterOverWorldScript.getValue(), exitOverWorldScript.getValue(),
+				enterNetherScript.getValue(), exitNetherScript.getValue(),
+				enterEndScript.getValue(), exitEndScript.getValue());
 		savedConfig.save();
 	}
 
@@ -281,7 +298,7 @@ public class SecondarySettingsScreen extends Screen {
 	}
 
 	private int maxScrollOffset() {
-		int contentBottom = 86 + 22 * 40 + 20;
+		int contentBottom = 86 + 23 * 40 + 20;
 		return Math.max(1, contentBottom - visibleBottom());
 	}
 
@@ -329,11 +346,11 @@ public class SecondarySettingsScreen extends Screen {
 				{"absorption", "unluck", "bad_omen", "blindness", "breath_of_the_nautilus",
 						"conduit_power", "darkness", "dolphins_grace", "fire_resistance", "freezing",
 						"glowing", "haste", "health_boost", "hero_of_the_village", "hunger",
-						"infested", "instant_damage", "instant_health", "invisibility", "jump_boost", "fire", "water"},
+						"infested", "instant_damage", "instant_health", "invisibility", "jump_boost", "fire", "water", "overworld"},
 				{"levitation", "luck", "mining_fatigue", "nausea", "night_vision",
 						"oozing", "poison", "raid_omen", "regeneration", "resistance",
 						"saturation", "slow_falling", "speed", "strength", "trial_omen",
-						"water_breathing", "weakness", "weaving", "wind_charge", "wither", "lava"}
+						"water_breathing", "weakness", "weaving", "wind_charge", "wither", "lava", "nether", "end"}
 		};
 
 		int top = visibleTop();
@@ -361,7 +378,7 @@ public class SecondarySettingsScreen extends Screen {
 
 	private String effectTranslationKey(String effectId) {
 		if (effectId.equals("fire") || effectId.equals("freezing")
-				|| effectId.equals("water") || effectId.equals("lava")) {
+				|| effectId.equals("water") || effectId.equals("lava") || effectId.equals("end") || effectId.equals("overworld") || effectId.equals("nether")) {
 			return "effect.homeassistant-controll." + effectId;
 		}
 		if (effectId.equals("wind_charge")) {

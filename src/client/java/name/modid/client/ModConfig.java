@@ -114,6 +114,13 @@ public final class ModConfig {
 	private String lavaScript = "";
 	private String endlavaScript = "";
 
+	private String enterOverWorldScript = "";
+	private String exitOverWorldScript = "";
+	private String enterNetherScript = "";
+	private String exitNetherScript = "";
+	private String enterEndScript = "";
+	private String exitEndScript = "";
+
 	public static ModConfig get() {
 		return INSTANCE;
 	}
@@ -641,6 +648,39 @@ public final class ModConfig {
 		return endlavaScript;
 	}
 
+	public void setDimensionScripts(String enterOverWorldScript, String exitOverWorldScript, String enterNetherScript, String exitNetherScript, String enterEndScript, String exitEndScript) {
+		this.enterOverWorldScript = enterOverWorldScript;
+		this.exitOverWorldScript = exitOverWorldScript;
+		this.enterNetherScript = enterNetherScript;
+		this.exitNetherScript = exitNetherScript;
+		this.enterEndScript = enterEndScript;
+		this.exitEndScript = exitEndScript;
+	}
+
+	public String getenterOverWorldScript() {
+		return enterOverWorldScript;
+	}
+
+	public String getexitOverWorldScript() {
+		return exitOverWorldScript;
+	}
+
+	public String getenterNetherScript() {
+		return enterNetherScript;
+	}
+
+	public String getexitNetherScript() {
+		return exitNetherScript;
+	}
+
+	public String getenterEndScript() {
+		return enterEndScript;
+	}
+
+	public String getexitEndScript() {
+		return exitEndScript;
+	}
+	
 	public void save() {
 		try {
 			Files.createDirectories(FILE.getParent());

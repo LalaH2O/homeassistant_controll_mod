@@ -22,5 +22,8 @@
   "effect.homeassistant-controll.fire": "Brennend",
   "effect.homeassistant-controll.freezing": "Gefrieren",
   "effect.homeassistant-controll.water": "Im Wasser",
-  "effect.homeassistant-controll.lava": "In Lava"
+  "effect.homeassistant-controll.lava": "In Lava",
+  "effect.homeassistant-controll.overworld": "In der Oberwelt",
+  "effect.homeassistant-controll.nether": "Im Nether",
+  "effect.homeassistant-controll.end": "Im End"
 }

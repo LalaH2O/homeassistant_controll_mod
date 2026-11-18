@@ -22,5 +22,8 @@
   "effect.homeassistant-controll.fire": "Brönnänd",
   "effect.homeassistant-controll.freezing": "Gfrüerä",
   "effect.homeassistant-controll.water": "Im Wassär",
-  "effect.homeassistant-controll.lava": "I dr Lava"
+  "effect.homeassistant-controll.lava": "I dr Lava",
+  "effect.homeassistant-controll.overworld": "I dr Obärwäut",
+  "effect.homeassistant-controll.nether": "Im Nether",
+  "effect.homeassistant-controll.end": "Im End"
 }

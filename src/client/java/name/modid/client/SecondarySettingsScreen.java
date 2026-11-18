@@ -330,8 +330,7 @@ public class SecondarySettingsScreen extends Screen {
 		graphics.enableScissor(0, top, this.width, bottom);
 		for (int column = 0; column < effectKeys.length; column++) {
 			for (int row = 0; row < effectKeys[column].length; row++) {
-				Component label = Component.translatable(
-						"effect.homeassistant-controll." + effectKeys[column][row]);
+				Component label = Component.translatable(effectTranslationKey(effectKeys[column][row]));
 				int rowY = labelY + row * 40 - scrollOffset;
 				graphics.text(this.font, label, xPositions[column], rowY, 0xFFFFFFFF, true);
 			}
@@ -347,5 +346,15 @@ public class SecondarySettingsScreen extends Screen {
 		int thumbHeight = Math.max(20, trackHeight * trackHeight / (trackHeight + maxScroll));
 		int thumbY = trackTop + (trackHeight - thumbHeight) * scrollOffset / maxScroll;
 		graphics.fill(scrollbarX, thumbY, scrollbarX + 5, thumbY + thumbHeight, 0xCCFFFFFF);
+	}
+
+	private String effectTranslationKey(String effectId) {
+		if (effectId.equals("fire") || effectId.equals("freezing")) {
+			return "effect.homeassistant-controll." + effectId;
+		}
+		if (effectId.equals("wind_charge")) {
+			return "effect.minecraft.wind_charged";
+		}
+		return "effect.minecraft." + effectId;
 	}
 }

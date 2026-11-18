@@ -12,5 +12,13 @@
   "screen.homeassistant-controll.config.on": "Agschautät",
   "screen.homeassistant-controll.config.off": "Abgschautät",
   "screen.homeassistant-controll.config.save": "Spiichärä",
-  "screen.homeassistant-controll.config.cancel": "Abbrächä"
+  "screen.homeassistant-controll.config.cancel": "Abbrächä", 
+  "screen.homeassistant-controll.config.more_settings": "Mee Iisteligä",
+  "screen.homeassistant-controll.secondary.title": "Mee Iisteligä",
+  "screen.homeassistant-controll.secondary.back": "Zrüg",
+  "screen.homeassistant-controll.secondary.save": "Spichära",
+  "screen.homeassistant-controll.secondary.start": "Aafa",
+  "screen.homeassistant-controll.secondary.end": "Ufhörä",
+  "effect.homeassistant-controll.fire": "Brönnänd",
+  "effect.homeassistant-controll.freezing": "Gfrüerä"
 }

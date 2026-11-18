@@ -12,5 +12,13 @@
   "screen.homeassistant-controll.config.on": "ON",
   "screen.homeassistant-controll.config.off": "OFF",
   "screen.homeassistant-controll.config.save": "Speichern",
-  "screen.homeassistant-controll.config.cancel": "Abbrechen"
+  "screen.homeassistant-controll.config.cancel": "Abbrechen",
+  "screen.homeassistant-controll.config.more_settings": "Mehr Einstellungen",
+  "screen.homeassistant-controll.secondary.title": "Mehr Einstellungen",
+  "screen.homeassistant-controll.secondary.back": "Zurück",
+  "screen.homeassistant-controll.secondary.save": "Speichern",
+  "screen.homeassistant-controll.secondary.start": "Beginn",
+  "screen.homeassistant-controll.secondary.end": "Ende",
+  "effect.homeassistant-controll.fire": "Brennend",
+  "effect.homeassistant-controll.freezing": "Gefrieren"
 }

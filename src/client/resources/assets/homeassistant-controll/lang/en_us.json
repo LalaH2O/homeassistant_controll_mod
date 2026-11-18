@@ -16,6 +16,7 @@
   "screen.homeassistant-controll.config.more_settings": "More settings",
   "screen.homeassistant-controll.secondary.title": "More settings",
   "screen.homeassistant-controll.secondary.back": "Back",
+  "screen.homeassistant-controll.secondary.save": "Save",
   "screen.homeassistant-controll.secondary.start": "Start",
   "screen.homeassistant-controll.secondary.end": "End",
   "effect.homeassistant-controll.absorption": "Absorption",

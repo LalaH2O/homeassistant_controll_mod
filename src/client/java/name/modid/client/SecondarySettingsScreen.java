@@ -201,16 +201,55 @@ public class SecondarySettingsScreen extends Screen {
 		endwitherScript = createField(xPositions[1] + 78, y + rowHeight * 19, fieldWidth, config.getendwitherScript());
 
 		this.addRenderableWidget(Button.builder(
-				Component.translatable("screen.homeassistant-controll.secondary.back"),
+				Component.translatable("screen.homeassistant-controll.secondary.save"),
 				button -> {
-					ModConfig savedConfig = ModConfig.get();
-					savedConfig.setFireScript(fireScript.getValue(), endfireScript.getValue());
-					savedConfig.save();
+					saveScriptIds();
 					this.minecraft.gui.setScreen(this.parent);
 				})
-				.bounds(this.width / 2 - 50, this.height - 40, 100, 20).build());
+				.bounds(this.width / 2 - 110, this.height - 40, 100, 20).build());
+
+		this.addRenderableWidget(Button.builder(
+				Component.translatable("screen.homeassistant-controll.secondary.back"),
+				button -> this.minecraft.gui.setScreen(this.parent))
+				.bounds(this.width / 2 + 10, this.height - 40, 100, 20).build());
 
 		updateScroll();
+	}
+
+	private void saveScriptIds() {
+		ModConfig savedConfig = ModConfig.get();
+		savedConfig.setValuesEffects(
+				absorptionScript.getValue(), unluckScript.getValue(), bad_omenScript.getValue(),
+				blindnessScript.getValue(), breath_of_the_nautilusScript.getValue(),
+				conduit_powerScript.getValue(), darknessScript.getValue(), dolphins_graceScript.getValue(),
+				fire_resistanceScript.getValue(), freezingScript.getValue(), glowingScript.getValue(),
+				hasteScript.getValue(), health_boostScript.getValue(), hero_of_the_villageScript.getValue(),
+				hungerScript.getValue(), infestedScript.getValue(), instant_damageScript.getValue(),
+				instant_healthScript.getValue(), invisibilityScript.getValue(), jump_boostScript.getValue(),
+				levitationScript.getValue(), luckScript.getValue(), mining_fatigueScript.getValue(),
+				nauseaScript.getValue(), night_visionScript.getValue(), oozingScript.getValue(),
+				poisonScript.getValue(), raid_omenScript.getValue(), regenerationScript.getValue(),
+				resistanceScript.getValue(), saturationScript.getValue(), slow_fallingScript.getValue(),
+				speedScript.getValue(), strengthScript.getValue(), trial_omenScript.getValue(),
+				water_breathingScript.getValue(), weaknessScript.getValue(), weavingScript.getValue(),
+				wind_chargeScript.getValue(), witherScript.getValue());
+		savedConfig.setendValuesEffects(
+				endabsorptionScript.getValue(), endunluckScript.getValue(), endbad_omenScript.getValue(),
+				endblindnessScript.getValue(), endbreath_of_the_nautilusScript.getValue(),
+				endconduit_powerScript.getValue(), enddarknessScript.getValue(), enddolphins_graceScript.getValue(),
+				endfire_resistanceScript.getValue(), endfreezingScript.getValue(), endglowingScript.getValue(),
+				endhasteScript.getValue(), endhealth_boostScript.getValue(), endhero_of_the_villageScript.getValue(),
+				endhungerScript.getValue(), endinfestedScript.getValue(), endinstant_damageScript.getValue(),
+				endinstant_healthScript.getValue(), endinvisibilityScript.getValue(), endjump_boostScript.getValue(),
+				endlevitationScript.getValue(), endluckScript.getValue(), endmining_fatigueScript.getValue(),
+				endnauseaScript.getValue(), endnight_visionScript.getValue(), endoozingScript.getValue(),
+				endpoisonScript.getValue(), endraid_omenScript.getValue(), endregenerationScript.getValue(),
+				endresistanceScript.getValue(), endsaturationScript.getValue(), endslow_fallingScript.getValue(),
+				endspeedScript.getValue(), endstrengthScript.getValue(), endtrial_omenScript.getValue(),
+				endwater_breathingScript.getValue(), endweaknessScript.getValue(), endweavingScript.getValue(),
+				endwind_chargeScript.getValue(), endwitherScript.getValue());
+		savedConfig.setFireScript(fireScript.getValue(), endfireScript.getValue());
+		savedConfig.save();
 	}
 
 	private EditBox createField(int x, int y, int width, String value) {

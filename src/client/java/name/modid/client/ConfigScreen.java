@@ -61,6 +61,11 @@ public class ConfigScreen extends Screen {
 
 		this.addRenderableWidget(Button.builder(Component.translatable("screen.homeassistant-controll.config.cancel"), button -> this.minecraft.gui.setScreen(null))
 				.bounds(150, 240, 100, 20).build());
+
+		this.addRenderableWidget(Button.builder(
+				Component.translatable("screen.homeassistant-controll.config.more_settings"),
+				button -> this.minecraft.gui.setScreen(new SecondarySettingsScreen(this)))
+				.bounds(260, 240, 160, 20).build());
 	}
 
 	private Component toggleLabel(String key, boolean enabled) {

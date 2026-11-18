@@ -107,6 +107,9 @@ public final class ModConfig {
 	private String endwitherScript = "";
 	private String witherScript = "";
 
+	private String fireScript = "";
+	private String endfireScript = "";
+
 	public static ModConfig get() {
 		return INSTANCE;
 	}
@@ -595,6 +598,19 @@ public final class ModConfig {
 		this.endweavingScript = endweavingScript;
 		this.endwind_chargeScript = endwind_chargeScript;
 		this.endwitherScript = endwitherScript;
+	}
+
+	public void setFireScript(String fireScript, String endfireScript) {
+		this.fireScript = fireScript;
+		this.endfireScript = endfireScript;
+	}
+
+	public String getfireScript() {
+		return fireScript;
+	}
+
+	public String getendfireScript() {
+		return endfireScript;
 	}
 
 	public void save() {

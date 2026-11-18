@@ -95,6 +95,9 @@ public class SecondarySettingsScreen extends Screen {
 	private EditBox endwind_chargeScript;
 	private EditBox endwitherScript;
 
+	private EditBox fireScript;
+	private EditBox endfireScript;
+
 	public SecondarySettingsScreen(Screen parent) {
 		super(Component.translatable("screen.homeassistant-controll.secondary.title"));
 		this.parent = parent;
@@ -152,6 +155,9 @@ public class SecondarySettingsScreen extends Screen {
 		endinvisibilityScript = createField(xPositions[0] + 78, y + rowHeight * 18, fieldWidth, config.getendinvisibilityScript());
 		jump_boostScript = createField(xPositions[0], y + rowHeight * 19, fieldWidth, config.getjump_boostScript());
 		endjump_boostScript = createField(xPositions[0] + 78, y + rowHeight * 19, fieldWidth, config.getendjump_boostScript());
+		
+		fireScript = createField(xPositions[0], y + rowHeight * 20, fieldWidth, config.getfireScript());
+		endfireScript = createField(xPositions[0] + 78, y + rowHeight * 20, fieldWidth, config.getendfireScript());
 
 		levitationScript = createField(xPositions[1], y, fieldWidth, config.getlevitationScript());
 		endlevitationScript = createField(xPositions[1] + 78, y, fieldWidth, config.getendlevitationScript());
@@ -196,7 +202,12 @@ public class SecondarySettingsScreen extends Screen {
 
 		this.addRenderableWidget(Button.builder(
 				Component.translatable("screen.homeassistant-controll.secondary.back"),
-				button -> this.minecraft.gui.setScreen(this.parent))
+				button -> {
+					ModConfig savedConfig = ModConfig.get();
+					savedConfig.setFireScript(fireScript.getValue(), endfireScript.getValue());
+					savedConfig.save();
+					this.minecraft.gui.setScreen(this.parent);
+				})
 				.bounds(this.width / 2 - 50, this.height - 40, 100, 20).build());
 
 		updateScroll();
@@ -220,7 +231,7 @@ public class SecondarySettingsScreen extends Screen {
 	}
 
 	private int maxScrollOffset() {
-		int contentBottom = 86 + 19 * 40 + 20;
+		int contentBottom = 86 + 20 * 40 + 20;
 		return Math.max(1, contentBottom - visibleBottom());
 	}
 
@@ -268,7 +279,7 @@ public class SecondarySettingsScreen extends Screen {
 				{"absorption", "unluck", "bad_omen", "blindness", "breath_of_the_nautilus",
 						"conduit_power", "darkness", "dolphins_grace", "fire_resistance", "freezing",
 						"glowing", "haste", "health_boost", "hero_of_the_village", "hunger",
-						"infested", "instant_damage", "instant_health", "invisibility", "jump_boost"},
+						"infested", "instant_damage", "instant_health", "invisibility", "jump_boost", "fire"},
 				{"levitation", "luck", "mining_fatigue", "nausea", "night_vision",
 						"oozing", "poison", "raid_omen", "regeneration", "resistance",
 						"saturation", "slow_falling", "speed", "strength", "trial_omen",

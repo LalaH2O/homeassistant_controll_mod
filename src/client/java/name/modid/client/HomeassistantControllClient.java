@@ -268,6 +268,20 @@ public class HomeassistantControllClient implements ClientModInitializer {
 	}
 
 	private static void triggerHomeAssistantScript(String scriptId) {
+		HomeassistantControll.LOGGER.info("Triggering script: {}", scriptId);
+		if (scriptId.isBlank()) {
+			return;
+		}
+
+		if (scriptId.contains(";")) {
+			for (String item : scriptId.split("\\s*;\\s*")) {
+				if (!item.isBlank()) {
+					triggerHomeAssistantScript(item.trim());
+				}
+			}
+			return;
+		}
+
 		ModConfig config = ModConfig.get();
 		if (config.getServerUrl().isBlank() || config.getAccessToken().isBlank() || scriptId.isBlank()) {
 			HomeassistantControll.LOGGER.warn("Home Assistant configuration is incomplete; cannot trigger script");
@@ -304,7 +318,9 @@ public class HomeassistantControllClient implements ClientModInitializer {
 			HomeassistantControll.LOGGER.error("Invalid Home Assistant server URL: {}", url, exception);
 		}
 	}
+
 	private static void setLightBrightness(String lightId, float brightness) {
+		HomeassistantControll.LOGGER.info("setting bright: {}; {}", lightId, brightness);
 		ModConfig config = ModConfig.get();
 		if (config.getServerUrl().isBlank() || config.getAccessToken().isBlank() || lightId.isBlank()) {
 			HomeassistantControll.LOGGER.warn("Home Assistant configuration is incomplete; cannot change light");

@@ -16,7 +16,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.LightLayer;
 
 import net.minecraft.tags.FluidTags;
 
@@ -27,6 +26,8 @@ public class HomeassistantControllClient implements ClientModInitializer {
 	private static final HttpClient HTTP_CLIENT = HttpClient.newHttpClient();
 	private static float lastHealth = -1.0F;
 	private static int lastLight = -3;
+	private static String lastLightTarget = "";
+	private static int lightDiagnosticTick;
 
 	private static boolean hadabsorption = false; 
 	private static boolean hadunluck = false; 
@@ -85,6 +86,12 @@ public class HomeassistantControllClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		ModConfig config = ModConfig.get();
+		HomeassistantControll.LOGGER.info(
+				"Light-level sync initialized: master={}, enabled={}, target={}",
+				config.isMasterSwitchEnabled(),
+				config.isLightLevelEnabled(),
+				config.getLightsId()
+		);
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			Player player = client.player;
 			if (client.player == null) {
@@ -106,16 +113,31 @@ public class HomeassistantControllClient implements ClientModInitializer {
 
 			if (ModConfig.get().isMasterSwitchEnabled() && ModConfig.get().isLightLevelEnabled()
 					&& client.player != null && client.level != null) {
-				BlockPos standingOn = client.player.blockPosition();
-					int skyLight = client.level.getBrightness(LightLayer.SKY, standingOn);
-					int blockLight = client.level.getBrightness(LightLayer.BLOCK, standingOn);
-					int totalLight = Math.max(skyLight, blockLight);
+				String lightsId = ModConfig.get().getLightsId();
+				lightDiagnosticTick++;
+				if (lightDiagnosticTick >= 200) {
+					lightDiagnosticTick = 0;
+					HomeassistantControll.LOGGER.info(
+							"Light-level sync running: target={}, light value={}",
+							lightsId,
+							client.level.getMaxLocalRawBrightness(BlockPos.containing(client.player.getEyePosition()))
+					);
+				}
+				if (!lightsId.equals(lastLightTarget)) {
+					lastLightTarget = lightsId;
+					lastLight = -3;
+				}
 
-				if (Math.abs(totalLight - lastLight) > 1) {
+				BlockPos lightPosition = BlockPos.containing(client.player.getEyePosition());
+				int totalLight = client.level.getMaxLocalRawBrightness(lightPosition);
+
+				if (totalLight != lastLight) {
 					lastLight = totalLight;
 					float brightness = totalLight * 100.0F / 15.0F;
-					setLightBrightness(ModConfig.get().getLightsId(), brightness);
+					setLightBrightness(lightsId, brightness);
 				}
+			} else {
+				lastLight = -3;
 			}
 
 			if (config.isMasterSwitchEnabled() && player != null) {
